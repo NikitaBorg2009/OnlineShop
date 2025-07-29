@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add product to the Shop</title>
+</head>
+<body>
+<hr>
+<h1>Add your new Product</h1>
+<hr>
+
+<form method="post" action="/createNewProduct" th:object="${product}">
+  <input type="text" name="name" id="name" th:field="*{name}" required>
+  <input type="number" name="price" id="price" th:field="*{price}" required>
+  <input type="number" name="rank" id="rank" th:field="*{rank}" required>
+  <input type="number" name="discount" id="discount" th:field="*{discount}" required>
+  <input type="text" name="group" id="group" th:field="*{group}" required>
+  <input type="number" name="count" id="count" th:field="*{count}" required>
+  <input type="number" name="id" id="id" th:field="*{id}" required>
+
+  <button type="submit" class="no-paragraph">Create new Product</button>
+</form>
+</body>
+</html>

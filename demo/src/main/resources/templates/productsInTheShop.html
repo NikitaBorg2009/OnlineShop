@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Table Products</title>
+</head>
+<body>
+<div th:unless="${category.getProducts().isEmpty()}">
+  <table border=3px align="center">
+    <thead>
+    <tr>
+      <th><h2>Product's name</h2></th>
+      <th><h2>Product's price</h2></th>
+      <th><h2>Product's rank</h2></th>
+      <th><h2>Product's discount</h2></th>
+      <th><h2>Product's group</h2></th>
+      <th><h2>Product's count</h2></th>
+      <th><h2>Product's ID</h2></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <div th:each="c1:${category.getProducts()}">
+      <tr>
+        <td><h3 th:text="${c1.getName()}"></h3></td>
+        <td><h3 th:text="${c1.getPrice()}"></h3></td>
+        <td><h3 th:text="${c1.getRank()}"></h3></td>
+        <td><h3 th:text="${c1.getDiscount()}"></h3></td>
+        <td><h3 th:text="${c1.getGroup()}"></h3></td>
+        <td><h3 th:text="${c1.getCount()}"></h3></td>
+        <td><h3 th:text="${c1.getId()}"></h3></td>
+      </tr>
+    </div>
+
+    </tbody>
+  </table>
+</div>
+<div th:if="${category.getProducts().isEmpty()}">
+  <h1>Нету товаров в магазине!</h1>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Page</title>
+</head>
+<body>
+
+<hr>
+<h1>Enter the product which you want to delete</h1>
+<hr>
+
+<form method="post" action="/deleteProduct" th:object="${product}">
+    <input type="text" name="name" id="name" th:field="*{name}" required>
+    <input type="number" name="price" id="price" th:field="*{price}" required>
+    <input type="number" name="rank" id="rank" th:field="*{rank}" required>
+    <input type="number" name="discount" id="discount" th:field="*{discount}" required>
+    <input type="text" name="group" id="group" th:field="*{group}" required>
+    <input type="number" name="count" id="count" th:field="*{count}" required>
+    <input type="number" name="id" id="id" th:field="*{id}" required>
+
+    <button type="submit" class="no-paragraph">Delete Product</button>
+</form>
+
+</body>
+</html>

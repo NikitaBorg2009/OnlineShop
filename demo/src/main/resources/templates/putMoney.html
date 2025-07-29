@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add money to your Bank Card</title>
+</head>
+<body>
+
+<hr>
+<h1>Your pocket:</h1>
+<h2 th:text="${pocket}"></h2>
+<hr>
+
+<hr>
+<h1>Enter the amount of money which you need to your bank card</h1>
+<hr>
+
+<form method="post" action="/addBalance">
+    <input type="number" name="money" required>
+    <button type="submit" class="no-paragraph">Add money to your bank card</button>
+</form>
+
+</body>
+</html>

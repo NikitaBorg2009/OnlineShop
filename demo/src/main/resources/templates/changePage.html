@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Page</title>
+</head>
+<body>
+<hr>
+<h1>Change Product here</h1>
+
+<hr>
+<hr>
+
+<form method="post" action="/changeProduct" th:object="${product}">
+  <h2>Enter information of OLD product</h2>
+  <hr>
+  <input type="text" name="name" th:field="*{name}" required>
+  <input type="number" name="price" th:field="*{price}" required>
+  <input type="number" name="rank" th:field="*{rank}" required>
+  <input type="number" name="discount" th:field="*{discount}" required>
+  <input type="text" name="group" th:field="*{group}" required>
+  <input type="number" name="count" th:field="*{count}" required>
+  <input type="number" name="id" th:field="*{id}" required>
+
+  <hr>
+  <h2>Enter information of NEW product</h2>
+  <hr>
+
+  <input type="text" name="1name" required>
+  <input type="number" name="1price" required>
+  <input type="number" name="1rank" required>
+  <input type="number" name="1discount" required>
+  <input type="text" name="1group" required>
+  <input type="number" name="1count" required>
+  <input type="number" name="1id" required>
+
+  <button type="submit" class="no-paragraph">Change information of Product</button>
+</form>
+</body>
+</html>
