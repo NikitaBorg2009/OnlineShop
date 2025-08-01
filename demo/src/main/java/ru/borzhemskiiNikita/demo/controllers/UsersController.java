@@ -79,6 +79,49 @@ public class UsersController {
         return "putMoney";
     }
 
+    @PostMapping("/addProductBASKET")
+    public String addProductBasket(@RequestParam("id") int id, @RequestParam("count") int count) {
+        if (!category.checkEqualCountOfProducts(id, count)) {
+            return "redirect:/denied";
+        }
+
+        category.addProductToTheBasket(basket, id, count);
+
+        return "redirect:/nice";
+    }
+
+    @GetMapping("/getAddProductPage")
+    public String addProductPage() {
+        return "addProductPage";
+    }
+
+    @GetMapping("/getBasketPageTable")
+    public String getBasketTable(Model model) {
+        model.addAttribute("basket", basket);
+        return "basketPageTable";
+    }
+
+    @GetMapping("/getBasket")
+    public String getUsersBasket() {
+        return "redirect:/getBasketPageTable";
+    }
+
+    @PostMapping("/deleteProductSHOP")
+    public String deleteProductInTheShop(@RequestParam("id") int id, @RequestParam("count") int count) {
+        if (!category.checkEqualCountOfProducts(id, count)) {
+            return "redirect:/denied";
+        }
+
+        category.deleteProductToTheBasket(basket, id, count);
+
+        return "redirect:/nice";
+    }
+
+    @GetMapping("/getDeleteProduct")
+    public String getDelPage() {
+        return "deleteProductPage";
+    }
+
     @GetMapping("/userConsole")
     public String getUserMenu() {
         return "userMenu";
