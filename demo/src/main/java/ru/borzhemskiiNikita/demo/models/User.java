@@ -18,4 +18,8 @@ public class User {
     public void addMoneyBankCard(int money) {
         pocket += money;
     }
+
+    public void deleteMoneyBankCard(int money) {
+        pocket -= money;
+    }
 }

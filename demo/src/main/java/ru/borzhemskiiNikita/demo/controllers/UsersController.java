@@ -122,6 +122,34 @@ public class UsersController {
         return "deleteProductPage";
     }
 
+    @PostMapping("/payForProductsBalance")
+    public String payForProducts(Model model) {
+        int money1 = 0;
+
+        for (Product p1 : basket.getBasket()) {
+            money1 += p1.getPrice()*p1.getCount();
+        }
+
+        if (users.buyBasketWithMoney(money1)) {
+            basket.getBasket().clear();
+            return "redirect:/nice";
+        }
+
+        return "redirect:/denied";
+    }
+
+    @GetMapping("/getPayPage")
+    public String getPayProducts(Model model) {
+        int money = 0;
+
+        for (Product p1 : basket.getBasket()) {
+            money += p1.getPrice();
+        }
+
+        model.addAttribute("money", money);
+        return "payBasket";
+    }
+
     @GetMapping("/userConsole")
     public String getUserMenu() {
         return "userMenu";

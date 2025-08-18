@@ -57,4 +57,18 @@ public class UsersArray {
 
         return -1;
     }
+
+    public boolean buyBasketWithMoney(int money) {
+        for (User allUser : allUsers) {
+            if (allUser.getLogin().equals(openedLogin) &&
+                    allUser.getPassword().equals(openedPassword)) {
+                if (money <= allUser.getPocket()) {
+                    allUser.deleteMoneyBankCard(money);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

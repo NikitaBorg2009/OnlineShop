@@ -19,7 +19,7 @@ public class Category {
         for (Product value : products) {
             if (value.getName().equals(p.getName()) && value.getPrice() == p.getPrice() &&
                     value.getRank() == p.getRank() && value.getDiscount() == p.getDiscount() &&
-                    value.getGroup().equals(p.getGroup()) && value.getCount() == p.getCount() &&
+                    value.getGroup().equals(p.getGroup()) &&
                     value.getId() == p.getId()) {
                 return true;
             }
@@ -49,7 +49,7 @@ public class Category {
     public void deleteProduct(Product p) {
         products.removeIf(value -> value.getName().equals(p.getName()) && value.getPrice() == p.getPrice() &&
                 value.getRank() == p.getRank() && value.getDiscount() == p.getDiscount() &&
-                value.getGroup().equals(p.getGroup()) && value.getCount() == p.getCount() &&
+                value.getGroup().equals(p.getGroup()) &&
                 value.getId() == p.getId());
     }
 
