@@ -122,6 +122,26 @@ public class UsersController {
         return "deleteProductPage";
     }
 
+    @PostMapping("/orderDelivery")
+    public String orderDelivery(@RequestParam("choice") String choice) {
+        if (choice.equals("yes")) {
+            if (users.payDelivery(category.getDeliveryPrice())) {
+                return "redirect:/nice";
+            }
+            return "redirect:/denied";
+        }
+        else if (choice.equals("no")) {
+            return "redirect:/nice";
+        }
+
+        return "redirect:/denied";
+    }
+
+    @GetMapping("/getDeliveryPage")
+    public String getDelivery() {
+        return "deliveryPage";
+    }
+
     @PostMapping("/payForProductsBalance")
     public String payForProducts(Model model) {
         int money1 = 0;
@@ -132,6 +152,10 @@ public class UsersController {
 
         if (users.buyBasketWithMoney(money1)) {
             basket.getBasket().clear();
+
+            if (category.isDelivery()) {
+                return "redirect:/getDeliveryPage";
+            }
             return "redirect:/nice";
         }
 

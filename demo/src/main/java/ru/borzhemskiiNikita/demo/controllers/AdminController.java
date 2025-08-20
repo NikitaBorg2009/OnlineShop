@@ -35,6 +35,11 @@ public class AdminController {
         newProduct.setCount(count);
         newProduct.setId(id);
 
+        if (newProduct.getCount() <= 0 || newProduct.getPrice() <= 0 || newProduct.getRank() <= 0 ||
+                newProduct.getDiscount() < 0) {
+            return "redirect:/denied";
+        }
+
         if (category.thereIsTheProduct(oldProduct)) {
             category.changeProduct(oldProduct, newProduct);
             return "redirect:/nice";
@@ -45,6 +50,10 @@ public class AdminController {
 
     @PostMapping("/deleteProduct")
     public String deleteProductSHOP(@ModelAttribute("product") Product product) {
+        if (product.getCount() <= 0 || product.getPrice() <= 0 || product.getRank() <= 0 || product.getDiscount() < 0) {
+            return "redirect:/denied";
+        }
+
         if (category.thereIsTheProduct(product)) {
             category.deleteProduct(product);
             return "redirect:/nice";
@@ -54,6 +63,10 @@ public class AdminController {
 
     @PostMapping("/createNewProduct")
     public String createNewProductShop(@ModelAttribute("product") Product product) {
+        if (product.getCount() <= 0 || product.getPrice() <= 0 || product.getRank() <= 0 || product.getDiscount() < 0) {
+            return "redirect:/denied";
+        }
+
         if (category.thereIsTheProduct(product)) {
             category.riseCountProduct(product);
             return "redirect:/nice";
@@ -79,6 +92,46 @@ public class AdminController {
     public String getAddProductShop(Model model) {
         model.addAttribute("product", product1);
         return "addProductSHOP";
+    }
+
+    @PostMapping("/switchOnDelivery")
+    public String switchOnDeliveryPrice(@RequestParam("choice") String choice) {
+        if (choice.equals("yes")) {
+            category.changeDeliveryOnOff();
+        }
+
+        return "redirect:/nice";
+    }
+
+    @GetMapping("/getSwitchOnDeliveryPage")
+    public String switchOnDelivery(Model model) {
+
+        if (category.isDelivery()) {
+            model.addAttribute("delivery", "Delivery is ON");
+        }
+        else {
+            model.addAttribute("delivery", "Delivery is OFF");
+        }
+
+        return "switchOnDeliveryPage";
+    }
+
+    @PostMapping("/changeDeliveryPrice")
+    public String changeDP(@RequestParam("money") int money) {
+        if (money < 0) {
+            return "redirect:/denied";
+        }
+        else if (!category.isDelivery()) {
+            return "redirect:/denied";
+        }
+
+        category.setDeliveryPrice(money);
+        return "redirect:/nice";
+    }
+
+    @GetMapping("/getChangeDeliveryPricePage")
+    public String getCPP() {
+        return "changeDeliveryPricePage";
     }
 
     @GetMapping("/adminConsole")

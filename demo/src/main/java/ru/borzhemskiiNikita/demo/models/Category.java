@@ -190,4 +190,13 @@ public class Category {
 
         return false;
     }
+
+    public void changeDeliveryOnOff() {
+        if (delivery) {
+            delivery = false;
+        }
+        else {
+            delivery = true;
+        }
+    }
 }

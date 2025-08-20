@@ -71,4 +71,20 @@ public class UsersArray {
 
         return false;
     }
+
+    public boolean payDelivery(int deliveryPrice) {
+        for (User allUser : allUsers) {
+            if (allUser.getLogin().equals(openedLogin) &&
+                    allUser.getPassword().equals(openedPassword)) {
+                if (deliveryPrice <= allUser.getPocket()) {
+                    allUser.deleteMoneyBankCard(deliveryPrice);
+                    return true;
+                }
+                
+                return false;
+            }
+        }
+
+        return false;
+    }
 }
