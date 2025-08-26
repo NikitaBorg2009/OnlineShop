@@ -19,11 +19,11 @@ public class FilterController {
     private List<Product> products = new ArrayList<>();
 
     @PostMapping("/priceFilterChange")
-    public String priceFilter(@RequestParam("min") int min, @RequestParam("max") int max) {
+    public String priceFilter(@RequestParam("minPrice") int minPrice, @RequestParam("maxPrice") int maxPrice) {
         List<Product> products2 = new ArrayList<>();
 
         for (Product p : products) {
-            if (p.getPrice() >= min && p.getPrice() <= max) {
+            if (p.getPrice() >= minPrice && p.getPrice() <= maxPrice) {
                 products2.add(p);
             }
         }
@@ -34,11 +34,11 @@ public class FilterController {
     }
 
     @PostMapping("/rankFilterChange")
-    public String rankFilter(@RequestParam("min") int min, @RequestParam("max") int max) {
+    public String rankFilter(@RequestParam("minRank") int minRank, @RequestParam("maxRank") int maxRank) {
         List<Product> products2 = new ArrayList<>();
 
         for (Product p : products) {
-            if (p.getRank() >= min && p.getRank() <= max) {
+            if (p.getRank() >= minRank && p.getRank() <= maxRank) {
                 products2.add(p);
             }
         }
