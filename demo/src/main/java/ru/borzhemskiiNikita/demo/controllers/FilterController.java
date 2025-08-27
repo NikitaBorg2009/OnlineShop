@@ -11,6 +11,7 @@ import ru.borzhemskiiNikita.demo.models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Controller
 public class FilterController {
@@ -20,15 +21,9 @@ public class FilterController {
 
     @PostMapping("/priceFilterChange")
     public String priceFilter(@RequestParam("minPrice") int minPrice, @RequestParam("maxPrice") int maxPrice) {
-        List<Product> products2 = new ArrayList<>();
 
-        for (Product p : products) {
-            if (p.getPrice() >= minPrice && p.getPrice() <= maxPrice) {
-                products2.add(p);
-            }
-        }
-
-        products = products2;
+        products = products.stream().filter(product ->
+                product.getPrice()>=minPrice && product.getPrice()<=maxPrice).toList();
 
         return "redirect:/nice";
     }
@@ -37,34 +32,28 @@ public class FilterController {
     public String rankFilter(@RequestParam("minRank") int minRank, @RequestParam("maxRank") int maxRank) {
         List<Product> products2 = new ArrayList<>();
 
-        for (Product p : products) {
-            if (p.getRank() >= minRank && p.getRank() <= maxRank) {
-                products2.add(p);
-            }
-        }
-
-        products = products2;
+        products = products.stream().filter(product ->
+                product.getRank()>=minRank && product.getRank()<=maxRank).toList();
 
         return "redirect:/nice";
     }
 
     @PostMapping("/nameFilterChange")
     public String rankFilter(@RequestParam("name") String name) {
-        List<Product> products2 = new ArrayList<>();
-
-        for (Product p : products) {
+        Stream<Product> nameFilter = products.stream().filter((product) -> {
             String help = "";
 
             for (int i = 0; i < name.length(); i++) {
-                help += p.getName().charAt(i);
+                help += product.getName().charAt(i);
             }
 
             if (help.equals(name)) {
-                products2.add(p);
+                return true;
             }
-        }
+            return false;
+        });
 
-        products = products2;
+        products = nameFilter.toList();
 
         return "redirect:/nice";
     }
@@ -92,6 +81,7 @@ public class FilterController {
 
     @GetMapping("/getFilterConsolePage")
     public String getFilterConsole() {
+        products = new ArrayList<>();
         products.addAll(category.getProducts());
         return "filterConsole";
     }
