@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Table Products</title>
+    <meta charset="UTF-8">
+    <title>Products in the Shop with Filters</title>
 </head>
 <body>
-<div th:unless="${category.getProducts().isEmpty()}">
+<div th:unless="${category.isEmpty()}">
   <table border=3px align="center">
     <thead>
     <tr>
@@ -20,7 +20,7 @@
     </thead>
 
     <tbody>
-    <div th:each="products:${category.getProducts()}">
+    <div th:each="products:${category}">
       <tr>
         <td><h3 th:text="${products.getName()}"></h3></td>
         <td><h3 th:text="${products.getPrice()}"></h3></td>
@@ -35,7 +35,7 @@
     </tbody>
   </table>
 </div>
-<div th:if="${category.getProducts().isEmpty()}">
+<div th:if="${category.isEmpty()}">
   <h1>Нету товаров в магазине!</h1>
 </div>
 </body>

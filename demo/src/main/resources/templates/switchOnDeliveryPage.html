@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Switch On Delivery Page</title>
+</head>
+<body>
+
+<h1 th:text="${delivery}"></h1>
+<hr>
+<h1>Switch on Delivery. Write (yes/no)</h1>
+<hr>
+
+<form method="post" action="/switchOnDelivery">
+  <input type="text" name="choice" required>
+  <button type="submit" class="no-paragraph">Submit choice</button>
+</form>
+</body>
+</html>

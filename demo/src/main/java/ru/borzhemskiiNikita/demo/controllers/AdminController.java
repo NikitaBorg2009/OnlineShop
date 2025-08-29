@@ -42,7 +42,7 @@ public class AdminController {
 
         if (category.thereIsTheProduct(oldProduct)) {
             category.changeProduct(oldProduct, newProduct);
-            return "redirect:/nice";
+            return "redirect:/accepted";
         }
 
         return "redirect:/denied";
@@ -56,7 +56,7 @@ public class AdminController {
 
         if (category.thereIsTheProduct(product)) {
             category.deleteProduct(product);
-            return "redirect:/nice";
+            return "redirect:/accepted";
         }
         return "redirect:/denied";
     }
@@ -69,11 +69,11 @@ public class AdminController {
 
         if (category.thereIsTheProduct(product)) {
             category.riseCountProduct(product);
-            return "redirect:/nice";
+            return "redirect:/accepted";
         }
 
         category.getProducts().add(product);
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @GetMapping("/getDeletePage")
@@ -100,7 +100,7 @@ public class AdminController {
             category.changeDeliveryOnOff();
         }
 
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @GetMapping("/getSwitchOnDeliveryPage")
@@ -126,7 +126,7 @@ public class AdminController {
         }
 
         category.setDeliveryPrice(money);
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @GetMapping("/getChangeDeliveryPricePage")
