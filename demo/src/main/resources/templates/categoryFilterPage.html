@@ -20,15 +20,15 @@
     </thead>
 
     <tbody>
-    <div th:each="c1:${category}">
+    <div th:each="products:${category}">
       <tr>
-        <td><h3 th:text="${c1.getName()}"></h3></td>
-        <td><h3 th:text="${c1.getPrice()}"></h3></td>
-        <td><h3 th:text="${c1.getRank()}"></h3></td>
-        <td><h3 th:text="${c1.getDiscount()}"></h3></td>
-        <td><h3 th:text="${c1.getGroup()}"></h3></td>
-        <td><h3 th:text="${c1.getCount()}"></h3></td>
-        <td><h3 th:text="${c1.getId()}"></h3></td>
+        <td><h3 th:text="${products.getName()}"></h3></td>
+        <td><h3 th:text="${products.getPrice()}"></h3></td>
+        <td><h3 th:text="${products.getRank()}"></h3></td>
+        <td><h3 th:text="${products.getDiscount()}"></h3></td>
+        <td><h3 th:text="${products.getGroup()}"></h3></td>
+        <td><h3 th:text="${products.getCount()}"></h3></td>
+        <td><h3 th:text="${products.getId()}"></h3></td>
       </tr>
     </div>
 
