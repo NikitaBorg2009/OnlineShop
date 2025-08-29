@@ -25,7 +25,7 @@ public class FilterController {
         products = products.stream().filter(product ->
                 product.getPrice()>=minPrice && product.getPrice()<=maxPrice).toList();
 
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @PostMapping("/rankFilterChange")
@@ -35,7 +35,7 @@ public class FilterController {
         products = products.stream().filter(product ->
                 product.getRank()>=minRank && product.getRank()<=maxRank).toList();
 
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @PostMapping("/nameFilterChange")
@@ -55,7 +55,7 @@ public class FilterController {
 
         products = nameFilter.toList();
 
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @GetMapping("/getCategoryFilterPage")

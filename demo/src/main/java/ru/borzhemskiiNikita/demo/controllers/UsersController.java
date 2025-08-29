@@ -22,9 +22,9 @@ public class UsersController {
         return "accessDeniedPage";
     }
 
-    @GetMapping("/nice")
+    @GetMapping("/accepted")
     public String getNice() {
-        return "nicePage";
+        return "acceptedPage";
     }
 
     @GetMapping("/access")
@@ -66,7 +66,7 @@ public class UsersController {
     @PostMapping("/addBalance")
     public String addBalance(@RequestParam("money") int money) {
         users.addMoneyUser(money);
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @GetMapping("/topBankCard")
@@ -87,7 +87,7 @@ public class UsersController {
 
         category.addProductToTheBasket(basket, id, count);
 
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @GetMapping("/getAddProductPage")
@@ -114,7 +114,7 @@ public class UsersController {
 
         category.deleteProductToTheBasket(basket, id, count);
 
-        return "redirect:/nice";
+        return "redirect:/accepted";
     }
 
     @GetMapping("/getDeleteProduct")
@@ -126,12 +126,12 @@ public class UsersController {
     public String orderDelivery(@RequestParam("choice") String choice) {
         if (choice.equals("yes")) {
             if (users.payDelivery(category.getDeliveryPrice())) {
-                return "redirect:/nice";
+                return "redirect:/accepted";
             }
             return "redirect:/denied";
         }
         else if (choice.equals("no")) {
-            return "redirect:/nice";
+            return "redirect:/accepted";
         }
 
         return "redirect:/denied";
@@ -156,7 +156,7 @@ public class UsersController {
             if (category.isDelivery()) {
                 return "redirect:/getDeliveryPage";
             }
-            return "redirect:/nice";
+            return "redirect:/accepted";
         }
 
         return "redirect:/denied";
