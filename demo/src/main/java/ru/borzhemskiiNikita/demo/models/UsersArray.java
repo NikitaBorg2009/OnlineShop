@@ -80,7 +80,7 @@ public class UsersArray {
                     allUser.deleteMoneyBankCard(deliveryPrice);
                     return true;
                 }
-                
+
                 return false;
             }
         }
