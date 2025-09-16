@@ -20,26 +20,26 @@ public class FilterController {
     private List<Product> products = new ArrayList<>();
 
     @PostMapping("/priceFilterChange")
-    public String priceFilter(@RequestParam("minPrice") int minPrice, @RequestParam("maxPrice") int maxPrice) {
-
-        products = products.stream().filter(product ->
+    public String priceFilter(@RequestParam("minPrice") int minPrice, @RequestParam("maxPrice") int maxPrice,
+                              Model model) {
+        List<Product> products2 = products.stream().filter(product ->
                 product.getPrice()>=minPrice && product.getPrice()<=maxPrice).toList();
 
-        return "redirect:/accepted";
+        model.addAttribute("category", products2);
+        return "categoryFilterPage";
     }
 
     @PostMapping("/rankFilterChange")
-    public String rankFilter(@RequestParam("minRank") int minRank, @RequestParam("maxRank") int maxRank) {
-        List<Product> products2 = new ArrayList<>();
-
-        products = products.stream().filter(product ->
+    public String rankFilter(@RequestParam("minRank") int minRank, @RequestParam("maxRank") int maxRank, Model model) {
+        List<Product> products2 = products.stream().filter(product ->
                 product.getRank()>=minRank && product.getRank()<=maxRank).toList();
 
-        return "redirect:/accepted";
+        model.addAttribute("category", products2);
+        return "categoryFilterPage";
     }
 
     @PostMapping("/nameFilterChange")
-    public String rankFilter(@RequestParam("name") String name) {
+    public String rankFilter(@RequestParam("name") String name, Model model) {
         Stream<Product> nameFilter = products.stream().filter((product) -> {
             String help = "";
 
@@ -53,9 +53,10 @@ public class FilterController {
             return false;
         });
 
-        products = nameFilter.toList();
+        List<Product> products2 = nameFilter.toList();
 
-        return "redirect:/accepted";
+        model.addAttribute("category", products2);
+        return "categoryFilterPage";
     }
 
     @GetMapping("/getCategoryFilterPage")
