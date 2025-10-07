@@ -7,17 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.borzhemskiiNikita.demo.models.Category;
 import ru.borzhemskiiNikita.demo.models.Product;
+import ru.borzhemskiiNikita.demo.services.AdminService;
 
 @Controller
 public class AdminController {
     @Autowired
-    private Category category;
-    @Autowired
-    private Product product1;
-
-
+    private AdminService adminService;
 
     @PostMapping("/changeProduct")
     public String changeProductShop(@ModelAttribute("product") Product oldProduct, @RequestParam("1name") String name,
@@ -25,88 +21,62 @@ public class AdminController {
                                     @RequestParam("1discount") int discount, @RequestParam("1group") String group,
                                     @RequestParam("1count") int count, @RequestParam("1id") int id) {
 
-        Product newProduct = new Product();
-
-        newProduct.setName(name);
-        newProduct.setPrice(price);
-        newProduct.setRank(rank);
-        newProduct.setDiscount(discount);
-        newProduct.setGroup(group);
-        newProduct.setCount(count);
-        newProduct.setId(id);
-
-        if (newProduct.getCount() <= 0 || newProduct.getPrice() <= 0 || newProduct.getRank() <= 0 ||
-                newProduct.getDiscount() < 0) {
-            return "redirect:/denied";
-        }
-
-        if (category.thereIsTheProduct(oldProduct)) {
-            category.changeProduct(oldProduct, newProduct);
+        if (adminService.changeProduct(oldProduct, name, price, rank, discount, group, count, id)) {
             return "redirect:/accepted";
         }
-
-        return "redirect:/denied";
+        else {
+            return "redirect:/denied";
+        }
     }
 
     @PostMapping("/deleteProduct")
     public String deleteProductSHOP(@ModelAttribute("product") Product product) {
-        if (product.getCount() <= 0 || product.getPrice() <= 0 || product.getRank() <= 0 || product.getDiscount() < 0) {
-            return "redirect:/denied";
-        }
-
-        if (category.thereIsTheProduct(product)) {
-            category.deleteProduct(product);
+        if (adminService.deleteProduct(product)) {
             return "redirect:/accepted";
         }
-        return "redirect:/denied";
+        else {
+            return "redirect:/denied";
+        }
     }
 
     @PostMapping("/createNewProduct")
     public String createNewProductShop(@ModelAttribute("product") Product product) {
-        if (product.getCount() <= 0 || product.getPrice() <= 0 || product.getRank() <= 0 || product.getDiscount() < 0) {
-            return "redirect:/denied";
-        }
-
-        if (category.thereIsTheProduct(product)) {
-            category.riseCountProduct(product);
+        if (adminService.createNewProduct(product)) {
             return "redirect:/accepted";
         }
-
-        category.getProducts().add(product);
-        return "redirect:/accepted";
+        else {
+            return "redirect:/denied";
+        }
     }
 
     @GetMapping("/getDeletePage")
     public String getDeletePage(Model model) {
-        model.addAttribute("product", product1);
+        model.addAttribute("product", adminService.getProduct());
         return "deletePage";
     }
 
     @GetMapping("/getChangePage")
     public String getChangePage(Model model) {
-        model.addAttribute("product", product1);
+        model.addAttribute("product", adminService.getProduct());
         return "changePage";
     }
 
     @GetMapping("/addProduct")
     public String getAddProductShop(Model model) {
-        model.addAttribute("product", product1);
+        model.addAttribute("product", adminService.getProduct());
         return "addProductSHOP";
     }
 
     @PostMapping("/switchOnDelivery")
     public String switchOnDeliveryPrice(@RequestParam("choice") String choice) {
-        if (choice.equals("yes")) {
-            category.changeDeliveryOnOff();
-        }
-
+        adminService.switchOnDeliveryPrice(choice);
         return "redirect:/accepted";
     }
 
     @GetMapping("/getSwitchOnDeliveryPage")
     public String switchOnDelivery(Model model) {
 
-        if (category.isDelivery()) {
+        if (adminService.switchOnDelivery()) {
             model.addAttribute("delivery", "Delivery is ON");
         }
         else {
@@ -118,15 +88,12 @@ public class AdminController {
 
     @PostMapping("/changeDeliveryPrice")
     public String changeDP(@RequestParam("money") int money) {
-        if (money < 0) {
+        if (adminService.changeDeliveryPrice(money)) {
+            return "redirect:/accepted";
+        }
+        else {
             return "redirect:/denied";
         }
-        else if (!category.isDelivery()) {
-            return "redirect:/denied";
-        }
-
-        category.setDeliveryPrice(money);
-        return "redirect:/accepted";
     }
 
     @GetMapping("/getChangeDeliveryPricePage")
