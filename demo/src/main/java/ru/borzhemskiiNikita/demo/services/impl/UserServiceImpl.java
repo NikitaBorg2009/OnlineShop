@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkBuyBasketWithMoney() {
-        return users.buyBasketWithMoney(userService.changeMoney1());
+        return users.buyBasketWithMoney(userService.changeMoneyUser());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int changeMoney1() {
+    public int changeMoneyUser() {
         int money1 = 0;
 
         for (Product p1 : basket.getBasket()) {
@@ -69,18 +69,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Basket returnBasket() {
+    public Basket getBasket() {
         return basket;
     }
 
     @Override
     public boolean checkChoice(String choice) {
-        if (choice.equals("yes")) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return choice.equals("yes");
     }
 
     @Override
@@ -89,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Category returnCategory() {
+    public Category getCategory() {
         return category;
     }
 

@@ -11,11 +11,11 @@ public interface UserService {
     void deleteProductInTheShop(int id, int count);
     void clearBasket();
 
-    int changeMoney1();
+    int changeMoneyUser();
     int getUsersPocket();
 
-    Basket returnBasket();
-    Category returnCategory();
+    Basket getBasket();
+    Category getCategory();
 
     boolean checkChoice(String choice);
     boolean checkPayDelivery();

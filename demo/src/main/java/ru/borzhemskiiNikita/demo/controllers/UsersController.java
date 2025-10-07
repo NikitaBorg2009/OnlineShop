@@ -30,7 +30,7 @@ public class UsersController {
 
     @GetMapping("/productsInTheShop")
     public String getPITS(Model model) {
-        model.addAttribute("category", userService.returnCategory());
+        model.addAttribute("category", userService.getCategory());
         return "productsInTheShop";
     }
 
@@ -85,7 +85,7 @@ public class UsersController {
 
     @GetMapping("/getBasketPageTable")
     public String getBasketTable(Model model) {
-        model.addAttribute("basket", userService.returnBasket());
+        model.addAttribute("basket", userService.getBasket());
         return "basketPageTable";
     }
 
@@ -146,7 +146,7 @@ public class UsersController {
 
     @GetMapping("/getPayPage")
     public String getPayProducts(Model model) {
-        model.addAttribute("money", userService.changeMoney1());
+        model.addAttribute("money", userService.changeMoneyUser());
         return "payBasket";
     }
 
