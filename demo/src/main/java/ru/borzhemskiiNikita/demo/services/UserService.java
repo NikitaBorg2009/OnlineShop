@@ -23,4 +23,11 @@ public interface UserService {
     boolean isDeliveryCategory();
     boolean checkEqualCountOfProductsCategory(int id, int count);
     boolean checkUsersPocketCount();
+
+
+//--------------------------Authorisation methods--------------------------
+
+
+    boolean registrationProcedure(String login, String password);
+    String authorisationProcedure(String login, String password);
 }

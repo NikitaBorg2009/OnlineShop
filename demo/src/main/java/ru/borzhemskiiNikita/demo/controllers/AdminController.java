@@ -24,9 +24,7 @@ public class AdminController {
         if (adminService.changeProduct(oldProduct, name, price, rank, discount, group, count, id)) {
             return "redirect:/accepted";
         }
-        else {
-            return "redirect:/denied";
-        }
+        return "redirect:/denied";
     }
 
     @PostMapping("/deleteProduct")
@@ -34,9 +32,7 @@ public class AdminController {
         if (adminService.deleteProduct(product)) {
             return "redirect:/accepted";
         }
-        else {
-            return "redirect:/denied";
-        }
+        return "redirect:/denied";
     }
 
     @PostMapping("/createNewProduct")
@@ -44,9 +40,7 @@ public class AdminController {
         if (adminService.createNewProduct(product)) {
             return "redirect:/accepted";
         }
-        else {
-            return "redirect:/denied";
-        }
+        return "redirect:/denied";
     }
 
     @GetMapping("/getDeletePage")
@@ -91,9 +85,7 @@ public class AdminController {
         if (adminService.changeDeliveryPrice(money)) {
             return "redirect:/accepted";
         }
-        else {
-            return "redirect:/denied";
-        }
+        return "redirect:/denied";
     }
 
     @GetMapping("/getChangeDeliveryPricePage")

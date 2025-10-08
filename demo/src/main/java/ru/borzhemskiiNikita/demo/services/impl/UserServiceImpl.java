@@ -15,6 +15,10 @@ public class UserServiceImpl implements UserService {
     private Basket basket;
     @Autowired
     private UserService userService;
+    @Autowired
+    private Admin admin;
+
+//--------------------------Users methods--------------------------
 
     @Override
     public boolean checkBuyBasketWithMoney() {
@@ -106,5 +110,65 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkUsersPocketCount() {
         return users.getUserPocket() == -1;
+    }
+
+
+//--------------------------Authorisation Methods--------------------------
+
+
+    @Override
+    public boolean registrationProcedure(String login, String password) {
+        for (int i = 0; i < users.getAllUsers().size(); i++) {
+            if (users.getAllUsers().get(i).getLogin().equals(login) &&
+                    users.getAllUsers().get(i).getPassword().equals(password)) {
+                return false;
+            }
+        }
+
+        User user1 = new User();
+
+        user1.setPassword(password);
+        user1.setLogin(login);
+
+        users.getAllUsers().add(user1);
+
+        return true;
+    }
+
+    @Override
+    public String authorisationProcedure(String login, String password) {
+        if (login.equals(admin.getLogin()) && password.equals(admin.getPassword())) {
+            users.setOpenedLogin(login);
+            users.setOpenedPassword(password);
+
+            User user1 = new User();
+
+            user1.setLogin(login);
+            user1.setPassword(password);
+
+            users.getAllUsers().add(user1);
+
+            return "admin";
+        }
+
+        for (int i = 0; i < users.getAllUsers().size(); ++i) {
+            if (users.getAllUsers().get(i).getLogin().equals(login) &&
+                    users.getAllUsers().get(i).getPassword().equals(password)) {
+
+                users.setOpenedLogin(login);
+                users.setOpenedPassword(password);
+
+                User user1 = new User();
+
+                user1.setLogin(login);
+                user1.setPassword(password);
+
+                users.getAllUsers().add(user1);
+
+                return "user";
+            }
+        }
+
+        return "denied";
     }
 }

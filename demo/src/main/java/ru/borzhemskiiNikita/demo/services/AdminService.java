@@ -1,6 +1,4 @@
 package ru.borzhemskiiNikita.demo.services;
-
-import ru.borzhemskiiNikita.demo.models.Category;
 import ru.borzhemskiiNikita.demo.models.Product;
 
 public interface AdminService {

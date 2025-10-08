@@ -6,12 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.borzhemskiiNikita.demo.models.Product;
 import ru.borzhemskiiNikita.demo.services.FilterService;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 
 @Controller
 public class FilterController {
