@@ -27,10 +27,12 @@ public class AuthController {
 
     @PostMapping("/authMethod")
     public String authMethod(@RequestParam("login") String login, @RequestParam("password") String password) {
-        if (userService.authorisationProcedure(login, password).equals("admin")) {
+        String checkAuth = userService.authorisationProcedure(login, password);
+
+        if (checkAuth.equals("admin")) {
             return "redirect:/adminConsole";
         }
-        else if (userService.authorisationProcedure(login, password).equals("user")) {
+        else if (checkAuth.equals("user")) {
             return "redirect:/userConsole";
         }
 

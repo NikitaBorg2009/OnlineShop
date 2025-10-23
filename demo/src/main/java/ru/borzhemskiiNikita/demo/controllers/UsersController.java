@@ -112,11 +112,8 @@ public class UsersController {
 
     @PostMapping("/orderDelivery")
     public String orderDelivery(@RequestParam("choice") String choice) {
-        if (userService.checkChoice(choice)) {
-            if (userService.checkPayDelivery()) {
-                return "redirect:/accepted";
-            }
-            return "redirect:/denied";
+        if (userService.checkChoice(choice) && userService.checkPayDelivery()) {
+            return "redirect:/accepted";
         }
         else if (!userService.checkChoice(choice)) {
             return "redirect:/accepted";

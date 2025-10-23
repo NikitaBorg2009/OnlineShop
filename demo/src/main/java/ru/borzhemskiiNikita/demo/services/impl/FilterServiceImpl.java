@@ -30,7 +30,7 @@ public class FilterServiceImpl implements FilterService {
 
     @Override
     public List<Product> nameFilter(String name) {
-        Stream<Product> nameFilter = products.stream().filter((product) -> {
+        return products.stream().filter((product) -> {
             StringBuilder help = new StringBuilder();
 
             for (int i = 0; i < name.length(); i++) {
@@ -38,9 +38,7 @@ public class FilterServiceImpl implements FilterService {
             }
 
             return help.toString().equals(name);
-        });
-
-        return nameFilter.toList();
+        }).toList();
     }
 
     @Override

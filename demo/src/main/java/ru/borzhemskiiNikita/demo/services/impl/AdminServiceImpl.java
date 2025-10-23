@@ -1,10 +1,12 @@
 package ru.borzhemskiiNikita.demo.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.borzhemskiiNikita.demo.models.Category;
 import ru.borzhemskiiNikita.demo.models.Product;
 import ru.borzhemskiiNikita.demo.services.AdminService;
 
+@Service
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private Category category;
@@ -23,10 +25,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean changeDeliveryPrice(int money) {
-        if (money < 0) {
-            return false;
-        }
-        else if (!category.isDelivery()) {
+        if (money < 0 && !category.isDelivery()) {
             return false;
         }
 
