@@ -23,6 +23,7 @@ public interface UserService {
     boolean isDeliveryCategory();
     boolean checkEqualCountOfProductsCategory(int id, int count);
     boolean checkUsersPocketCount();
+    boolean checkEqualBasket(int id, int count);
 
 
 //--------------------------Authorisation methods--------------------------

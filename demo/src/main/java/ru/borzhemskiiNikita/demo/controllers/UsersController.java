@@ -69,7 +69,7 @@ public class UsersController {
 
     @PostMapping("/addProductBASKET")
     public String addProductBasket(@RequestParam("id") int id, @RequestParam("count") int count) {
-        if (userService.checkEqualCountOfProductsCategory(id, count)) {
+        if (!userService.checkEqualCountOfProductsCategory(id, count)) {
             return "redirect:/denied";
         }
 
@@ -96,7 +96,7 @@ public class UsersController {
 
     @PostMapping("/deleteProductSHOP")
     public String deleteProductInTheShop(@RequestParam("id") int id, @RequestParam("count") int count) {
-        if (userService.checkEqualCountOfProductsCategory(id, count)) {
+        if (!userService.checkEqualBasket(id, count)) {
             return "redirect:/denied";
         }
 

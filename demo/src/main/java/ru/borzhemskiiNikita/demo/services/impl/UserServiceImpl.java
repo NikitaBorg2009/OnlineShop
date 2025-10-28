@@ -14,15 +14,25 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private Basket basket;
     @Autowired
-    private UserService userService;
-    @Autowired
     private Admin admin;
 
 //--------------------------Users methods--------------------------
 
+
+    @Override
+    public boolean checkEqualBasket(int id, int count) {
+        for (Product value : basket.getBasket()) {
+            if (value.getId() == id && (value.getCount() - count) >= 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public boolean checkBuyBasketWithMoney() {
-        return users.buyBasketWithMoney(userService.changeMoneyUser());
+        return users.buyBasketWithMoney(changeMoneyUser());
     }
 
     @Override
@@ -99,7 +109,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkEqualCountOfProductsCategory(int id, int count) {
-        return !category.checkEqualCountOfProducts(id, count);
+        return category.checkEqualCountOfProducts(id, count);
     }
 
     @Override
