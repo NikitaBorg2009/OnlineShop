@@ -6,16 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.borzhemskiiNikita.demo.models.*;
+import ru.borzhemskiiNikita.demo.services.UserService;
 
 @Controller
 public class UsersController {
     @Autowired
-    private Category category;
-    @Autowired
-    private Basket basket;
-    @Autowired
-    private UsersArray users;
+    private UserService userService;
 
     @GetMapping("/denied")
     public String accessDenied() {
@@ -34,27 +30,19 @@ public class UsersController {
 
     @GetMapping("/productsInTheShop")
     public String getPITS(Model model) {
-        model.addAttribute("category", category);
+        model.addAttribute("category", userService.getCategory());
         return "productsInTheShop";
     }
 
     @PostMapping("/changeLogin")
     public String changeLogin(@RequestParam("login") String login) {
-        User user = new User();
-        user.setLogin(login);
-
-        users.changeUserLogin(user);
-
+        userService.changeLogin(login);
         return "redirect:/access";
     }
 
     @PostMapping("/changePassword")
     public String changePassword(@RequestParam("password") String password) {
-        User user = new User();
-        user.setPassword(password);
-
-        users.changeUserPassword(user);
-
+        userService.changePassword(password);
         return "redirect:/access";
     }
 
@@ -65,27 +53,27 @@ public class UsersController {
 
     @PostMapping("/addBalance")
     public String addBalance(@RequestParam("money") int money) {
-        users.addMoneyUser(money);
+        userService.addBalance(money);
         return "redirect:/accepted";
     }
 
     @GetMapping("/topBankCard")
     public String putMoney(Model model) {
-        if (users.getUserPocket() == -1) {
+        if (userService.checkUsersPocketCount()) {
             return "redirect:/denied";
         }
 
-        model.addAttribute("pocket", users.getUserPocket());
+        model.addAttribute("pocket", userService.getUsersPocket());
         return "putMoney";
     }
 
     @PostMapping("/addProductBASKET")
     public String addProductBasket(@RequestParam("id") int id, @RequestParam("count") int count) {
-        if (!category.checkEqualCountOfProducts(id, count)) {
+        if (!userService.checkEqualCountOfProductsCategory(id, count)) {
             return "redirect:/denied";
         }
 
-        category.addProductToTheBasket(basket, id, count);
+        userService.addProductBasket(id, count);
 
         return "redirect:/accepted";
     }
@@ -97,7 +85,7 @@ public class UsersController {
 
     @GetMapping("/getBasketPageTable")
     public String getBasketTable(Model model) {
-        model.addAttribute("basket", basket);
+        model.addAttribute("basket", userService.getBasket());
         return "basketPageTable";
     }
 
@@ -108,11 +96,11 @@ public class UsersController {
 
     @PostMapping("/deleteProductSHOP")
     public String deleteProductInTheShop(@RequestParam("id") int id, @RequestParam("count") int count) {
-        if (!category.checkEqualCountOfProducts(id, count)) {
+        if (!userService.checkEqualBasket(id, count)) {
             return "redirect:/denied";
         }
 
-        category.deleteProductToTheBasket(basket, id, count);
+        userService.deleteProductInTheShop(id, count);
 
         return "redirect:/accepted";
     }
@@ -124,13 +112,10 @@ public class UsersController {
 
     @PostMapping("/orderDelivery")
     public String orderDelivery(@RequestParam("choice") String choice) {
-        if (choice.equals("yes")) {
-            if (users.payDelivery(category.getDeliveryPrice())) {
-                return "redirect:/accepted";
-            }
-            return "redirect:/denied";
+        if (userService.checkChoice(choice) && userService.checkPayDelivery()) {
+            return "redirect:/accepted";
         }
-        else if (choice.equals("no")) {
+        else if (!userService.checkChoice(choice)) {
             return "redirect:/accepted";
         }
 
@@ -144,16 +129,10 @@ public class UsersController {
 
     @PostMapping("/payForProductsBalance")
     public String payForProducts(Model model) {
-        int money1 = 0;
+        if (userService.checkBuyBasketWithMoney()) {
+            userService.clearBasket();
 
-        for (Product p1 : basket.getBasket()) {
-            money1 += p1.getPrice()*p1.getCount();
-        }
-
-        if (users.buyBasketWithMoney(money1)) {
-            basket.getBasket().clear();
-
-            if (category.isDelivery()) {
+            if (userService.isDeliveryCategory()) {
                 return "redirect:/getDeliveryPage";
             }
             return "redirect:/accepted";
@@ -164,13 +143,7 @@ public class UsersController {
 
     @GetMapping("/getPayPage")
     public String getPayProducts(Model model) {
-        int money = 0;
-
-        for (Product p1 : basket.getBasket()) {
-            money += p1.getPrice();
-        }
-
-        model.addAttribute("money", money);
+        model.addAttribute("money", userService.changeMoneyUser());
         return "payBasket";
     }
 

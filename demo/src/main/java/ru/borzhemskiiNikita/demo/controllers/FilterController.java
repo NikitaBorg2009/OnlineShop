@@ -6,62 +6,35 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.borzhemskiiNikita.demo.models.Category;
-import ru.borzhemskiiNikita.demo.models.Product;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import ru.borzhemskiiNikita.demo.services.FilterService;
 
 @Controller
 public class FilterController {
     @Autowired
-    private Category category;
-    private List<Product> products = new ArrayList<>();
+    private FilterService filterService;
 
     @PostMapping("/priceFilterChange")
     public String priceFilter(@RequestParam("minPrice") int minPrice, @RequestParam("maxPrice") int maxPrice,
                               Model model) {
-        List<Product> products2 = products.stream().filter(product ->
-                product.getPrice()>=minPrice && product.getPrice()<=maxPrice).toList();
-
-        model.addAttribute("category", products2);
+        model.addAttribute("category", filterService.priceFilter(minPrice, maxPrice));
         return "categoryFilterPage";
     }
 
     @PostMapping("/rankFilterChange")
     public String rankFilter(@RequestParam("minRank") int minRank, @RequestParam("maxRank") int maxRank, Model model) {
-        List<Product> products2 = products.stream().filter(product ->
-                product.getRank()>=minRank && product.getRank()<=maxRank).toList();
-
-        model.addAttribute("category", products2);
+        model.addAttribute("category", filterService.rankFilter(minRank, maxRank));
         return "categoryFilterPage";
     }
 
     @PostMapping("/nameFilterChange")
-    public String rankFilter(@RequestParam("name") String name, Model model) {
-        Stream<Product> nameFilter = products.stream().filter((product) -> {
-            String help = "";
-
-            for (int i = 0; i < name.length(); i++) {
-                help += product.getName().charAt(i);
-            }
-
-            if (help.equals(name)) {
-                return true;
-            }
-            return false;
-        });
-
-        List<Product> products2 = nameFilter.toList();
-
-        model.addAttribute("category", products2);
+    public String nameFilter(@RequestParam("name") String name, Model model) {
+        model.addAttribute("category", filterService.nameFilter(name));
         return "categoryFilterPage";
     }
 
     @GetMapping("/getCategoryFilterPage")
     public String getCategoryFilter(Model model) {
-        model.addAttribute("category", products);
+        model.addAttribute("category", filterService.getProducts());
         return "categoryFilterPage";
     }
 
@@ -82,8 +55,7 @@ public class FilterController {
 
     @GetMapping("/getFilterConsolePage")
     public String getFilterConsole() {
-        products = new ArrayList<>();
-        products.addAll(category.getProducts());
+        filterService.filterConsoleUpdate();
         return "filterConsole";
     }
 }
