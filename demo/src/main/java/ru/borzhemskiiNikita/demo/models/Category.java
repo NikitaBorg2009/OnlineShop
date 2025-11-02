@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс, который содержит информацию об онлайн магазине
+ */
 @Getter
 @Setter
 @Component
@@ -15,6 +18,12 @@ public class Category {
     private boolean delivery;
     private int deliveryPrice;
 
+    /**
+     * Метод, который проверяет наличие конкретного продукта в категории магазина
+     *
+     * @param p конкретный продукт
+     * @return True, если присутствует продукт в магазине, иначе False
+     */
     public boolean thereIsTheProduct(Product p) {
         for (Product value : products) {
             if (value.getName().equals(p.getName()) && value.getPrice() == p.getPrice() &&
@@ -28,6 +37,12 @@ public class Category {
         return false;
     }
 
+    /**
+     * Метод, который изменяет информацию о продукте в онлайн магазине
+     *
+     * @param p        старый продукт
+     * @param product2 новый продукт
+     */
     public void changeProduct(Product p, Product product2) {
         for (Product value : products) {
             if (value.getName().equals(p.getName()) && value.getPrice() == p.getPrice() &&
@@ -46,6 +61,11 @@ public class Category {
         }
     }
 
+    /**
+     * Метод, который удаляет конкретный товар из онлайн магазина
+     *
+     * @param p конкретный продукт
+     */
     public void deleteProduct(Product p) {
         products.removeIf(value -> value.getName().equals(p.getName()) && value.getPrice() == p.getPrice() &&
                 value.getRank() == p.getRank() && value.getDiscount() == p.getDiscount() &&
@@ -53,6 +73,11 @@ public class Category {
                 value.getId() == p.getId());
     }
 
+    /**
+     * Метод, который увеличивает кол-во продуктов
+     *
+     * @param p конкретный продукт
+     */
     public void riseCountProduct(Product p) {
         for (Product value : products) {
             if (value.getName().equals(p.getName()) && value.getPrice() == p.getPrice() &&
@@ -65,6 +90,13 @@ public class Category {
         }
     }
 
+    /**
+     * Метод, который добавляет продукт в корзину пользователя
+     *
+     * @param basket корзина пользователя
+     * @param id     код товара
+     * @param count  кол-во продуктов
+     */
     public void addProductToTheBasket(Basket basket, int id, int count) {
         boolean check = false;
         boolean check2 = false;
@@ -93,9 +125,7 @@ public class Category {
                     basket.getBasket().add(p);
                     value.lowCount(count);
                 }
-            }
-
-            else if (value.getId() == id && (value.getCount() - count) == 0) {
+            } else if (value.getId() == id && (value.getCount() - count) == 0) {
                 for (Product product1 : basket.getBasket()) {
                     if (product1.getId() == id) {
                         product1.riseCount(count);
@@ -123,6 +153,13 @@ public class Category {
         }
     }
 
+    /**
+     * Метод, который удаляет продукт из корзины пользователя
+     *
+     * @param basket корзина пользователя
+     * @param id     код товара
+     * @param count  кол-во товаров
+     */
     public void deleteProductToTheBasket(Basket basket, int id, int count) {
         boolean check = false;
         boolean check2 = false;
@@ -152,9 +189,7 @@ public class Category {
 
                 basket.getBasket().remove(value);
                 break;
-            }
-
-            else if (value.getId() == id && (value.getCount() - count) > 0) {
+            } else if (value.getId() == id && (value.getCount() - count) > 0) {
                 for (Product product : products) {
                     if (product.getId() == id) {
                         product.riseCount(count);
@@ -181,6 +216,13 @@ public class Category {
         }
     }
 
+    /**
+     * Метод, который проверяет есть ли такой продукт в магазине у которого совпадает код товара и кол-во его
+     *
+     * @param id    код товара
+     * @param count кол-во товаров
+     * @return True, если есть такой товар, иначе False
+     */
     public boolean checkEqualCountOfProducts(int id, int count) {
         for (Product value : products) {
             if (value.getId() == id && (value.getCount() - count) >= 0) {
@@ -191,11 +233,13 @@ public class Category {
         return false;
     }
 
+    /**
+     * Метод, который включает либо выключает доставку онлайн магазина
+     */
     public void changeDeliveryOnOff() {
         if (delivery) {
             delivery = false;
-        }
-        else {
+        } else {
             delivery = true;
         }
     }

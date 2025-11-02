@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+/**
+ * Класс, который содержит информацию об администраторе
+ */
 @Component
 @Setter
 @Getter

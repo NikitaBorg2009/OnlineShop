@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс, который содержит информацию об корзины покупателя
+ */
 @Component
 @Setter
 @Getter
