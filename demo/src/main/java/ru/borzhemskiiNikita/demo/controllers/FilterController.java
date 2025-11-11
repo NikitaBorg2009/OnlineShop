@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.borzhemskiiNikita.demo.services.FilterService;
 
+/**
+ * Класс, реализующий запросы связанные с фильтрацией продуктов из онлайн магазина
+ */
 @Controller
 public class FilterController {
     @Autowired
@@ -56,7 +59,7 @@ public class FilterController {
     }
 
     /**
-     * Метод перекидывает пользователя на страницу списка товаров с фильтрами
+     * Метод перенаправляет пользователя на страницу списка товаров с фильтрами
      *
      * @param model модель передаёт фильтрованный список товаров на страницу
      * @return представление страницы categoryFilterPage
@@ -68,7 +71,7 @@ public class FilterController {
     }
 
     /**
-     * Метод перекидывает пользователя на страницу с фильтром по рейтингу
+     * Метод перенаправляет пользователя на страницу с фильтром по рейтингу
      *
      * @return представление страницы rankFilter
      */
@@ -78,7 +81,7 @@ public class FilterController {
     }
 
     /**
-     * Метод перекидывает пользователя на страницу с фильтром по цене
+     * Метод перенаправляет пользователя на страницу с фильтром по цене
      *
      * @return представление страницы priceFilter
      */
@@ -88,7 +91,7 @@ public class FilterController {
     }
 
     /**
-     * Метод перекидывает пользователя на страницу с фильтром по имени
+     * Метод перенаправляет пользователя на страницу с фильтром по имени
      *
      * @return представление страницы findProductByNameFilter
      */
@@ -98,7 +101,7 @@ public class FilterController {
     }
 
     /**
-     * Метод перекидывает пользователя на страницу меню всех фильтров
+     * Метод перенаправляет пользователя на страницу меню всех фильтров
      *
      * @return представление страницы filterConsole
      */

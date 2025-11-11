@@ -16,7 +16,7 @@ public interface UserService {
     void changePassword(String password);
 
     /**
-     * Метод изменяет догин пользователя
+     * Метод изменяет логин пользователя
      *
      * @param login логин пользователя
      */

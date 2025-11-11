@@ -8,7 +8,7 @@ import ru.borzhemskiiNikita.demo.models.Product;
 public interface AdminService {
 
     /**
-     * Метод позволяет изменить информацию об продукте в онлайн магазине
+     * Метод изменяет информацию об продукте в онлайн магазине
      *
      * @param oldProduct информация о старом продукте в виде {@link Product}
      * @param name       имя товара
@@ -24,9 +24,9 @@ public interface AdminService {
                           int count, int id);
 
     /**
-     * Метод позволяет удалить полностью товар из онлайн магазина
+     * Метод удаляет полностью товар из онлайн магазина
      *
-     * @param product информация о продукте в виде {@link Product}
+     * @param product информация о продукте {@link Product}
      * @return True, если товар прошёл проверки и удалился, иначе False, если такого товара нет в магазине
      */
     boolean deleteProduct(Product product);
@@ -35,7 +35,7 @@ public interface AdminService {
      * Метод создаёт новый товар и добавляет его в онлайн магазин, либо увеличивает кол-во товаров, если такой товар
      * уже есть в магазине
      *
-     * @param product информация о продукте в виде {@link Product}
+     * @param product информация о продукте {@link Product}
      * @return True, если товар прошёл проверки и добавился в магазин, иначе False, если товар неправильно создали
      */
     boolean createNewProduct(Product product);

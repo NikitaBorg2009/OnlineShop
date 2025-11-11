@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.borzhemskiiNikita.demo.models.Product;
 import ru.borzhemskiiNikita.demo.services.AdminService;
 
+/**
+ * Класс, реализующий запросы связанные с администрацией онлайн магазина
+ */
 @Controller
 public class AdminController {
     @Autowired
     private AdminService adminService;
 
     /**
-     * Метод помогает изменить информацию старого продукта на новую
+     * Метод обновляет информацию указанного продукта
      *
      * @param oldProduct старый товар в виде {@link Product}
      * @param name       имя нового продукта
@@ -26,7 +29,8 @@ public class AdminController {
      * @param group      категория или группа нового продукта
      * @param count      кол-во нового продукта
      * @param id         код нового продукта
-     * @return перекидывание на метод /accepted, если все проверки прошёл продукт, иначе перекидывание на метод /denied
+     * @return перенаправляет на метод /accepted, если все проверки прошёл продукт, иначе перенаправляет на метод
+     * /denied
      */
     @PostMapping("/changeProduct")
     public String changeProductShop(@ModelAttribute("product") Product oldProduct, @RequestParam("1name") String name,
@@ -41,10 +45,10 @@ public class AdminController {
     }
 
     /**
-     * Метод удаляет продукт из онлайн магазина
+     * Метод удаляет указанный продукт из онлайн магазина
      *
-     * @param product продукт который надо удалить в виде {@link Product}
-     * @return перекидывание на метод /accepted, если продукт удалился, иначе перекидывание на метод /denied
+     * @param product данные о продукте {@link Product}
+     * @return перенаправляет на метод /accepted, если продукт удалился, иначе перенаправляет на метод /denied
      */
     @PostMapping("/deleteProduct")
     public String deleteProductSHOP(@ModelAttribute("product") Product product) {
@@ -57,8 +61,8 @@ public class AdminController {
     /**
      * Метод создаёт новый продукт или увеличивает кол-во продукта, который есть в магазине
      *
-     * @param product продукт, который хотят создать или увеличить кол-во его
-     * @return перекидывание на метод /accepted, если продукт создался, иначе перекидывание на метод /denied
+     * @param product данные о продукте {@link Product}
+     * @return перенаправляет на метод /accepted, если продукт создался, иначе перенаправляет на метод /denied
      */
     @PostMapping("/createNewProduct")
     public String createNewProductShop(@ModelAttribute("product") Product product) {
@@ -69,7 +73,7 @@ public class AdminController {
     }
 
     /**
-     * Метод перекидывает администратора на страницу удаления товара из онлайн магазина
+     * Метод перенаправляет администратора на страницу удаления товара
      *
      * @param model модель передаёт продукт, который надо удалить
      * @return представление страницы deletePage
@@ -81,7 +85,7 @@ public class AdminController {
     }
 
     /**
-     * Метод перекидывает администратора на страницу изменения информации о товаре из онлайн магазина
+     * Метод перенаправляет администратора на страницу изменения информации о товаре
      *
      * @param model модель передаёт продукт, который надо изменить
      * @return представление страницы changePage
@@ -93,7 +97,7 @@ public class AdminController {
     }
 
     /**
-     * Метод перекидывает администратора на страницу добавления продукта в онлайн магазин или увеличения его кол-ва
+     * Метод перенаправляет администратора на страницу добавления продукта в онлайн магазин или увеличения его кол-ва
      *
      * @param model модель передаёт продукт, который надо добавить или увеличить его кол-во
      * @return представление страницы addProductSHOP
@@ -105,10 +109,10 @@ public class AdminController {
     }
 
     /**
-     * Метод помогает сделать доставку бесплатной или платной (указать цену)
+     * Метод делает доставку бесплатной или платной (указать цену)
      *
      * @param choice выбор администратора (включить или выключить цену доставки)
-     * @return перекидывание на метод /accepted
+     * @return перенаправляет на метод /accepted
      */
     @PostMapping("/switchOnDelivery")
     public String switchOnDeliveryPrice(@RequestParam("choice") String choice) {
@@ -117,7 +121,7 @@ public class AdminController {
     }
 
     /**
-     * Метод перекидывает администратора на страницу включения или выключения доставки
+     * Метод перенаправляет администратора на страницу включения или выключения доставки
      *
      * @param model модель передаёт информацию о доставки - включена или выключена она
      * @return представление страницы switchOnDeliveryPage
@@ -135,10 +139,10 @@ public class AdminController {
     }
 
     /**
-     * Метод даёт возможность администратору изменить цену доставки
+     * Метод изменяет цену доставки
      *
      * @param money новая цена доставки
-     * @return перекидывание на метод /accepted, если цена доставки изменилась и прошла проверки, иначе перекидывание
+     * @return перенаправляет на метод /accepted, если цена доставки изменилась и прошла проверки, иначе перенаправляет
      * на метод /denied
      */
     @PostMapping("/changeDeliveryPrice")
@@ -150,7 +154,7 @@ public class AdminController {
     }
 
     /**
-     * Метод перекидывает администратора на страницу изменения цены доставки
+     * Метод перенаправляет администратора на страницу изменения цены доставки
      *
      * @return представление страницы changeDeliveryPricePage
      */
@@ -160,7 +164,7 @@ public class AdminController {
     }
 
     /**
-     * Метод перекидывает администратора на меню админа
+     * Метод перенаправляет администратора на меню админа
      *
      * @return представление страницы adminConsole
      */

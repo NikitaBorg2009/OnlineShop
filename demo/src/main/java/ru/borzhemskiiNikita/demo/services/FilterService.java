@@ -14,7 +14,7 @@ public interface FilterService {
      *
      * @param minPrice минимальная цена для товаров
      * @param maxPrice максимальная цена для товаров
-     * @return список товаров в виде {@link List<Product>}, которые прошли фильтр по цене
+     * @return список товаров {@link List<Product>}, которые прошли фильтр по цене
      */
     List<Product> priceFilter(int minPrice, int maxPrice);
 
@@ -23,7 +23,7 @@ public interface FilterService {
      *
      * @param minRank минимальный рейтинг для товаров
      * @param maxRank максимальный рейтинг для товаров
-     * @return список товаров в виде {@link List<Product>}, которые прошли фильтр по рейтингу
+     * @return список товаров {@link List<Product>}, которые прошли фильтр по рейтингу
      */
     List<Product> rankFilter(int minRank, int maxRank);
 
@@ -31,14 +31,14 @@ public interface FilterService {
      * Метод фильтрует товары у которых начальные буквы названия товара такие же как и ввёл сам пользователь
      *
      * @param name имя товара или начальные буквы названия его
-     * @return список товаров в виде {@link List<Product>}, которые прошли фильтр по названию
+     * @return список товаров {@link List<Product>}, которые прошли фильтр по названию
      */
     List<Product> nameFilter(String name);
 
     /**
      * Метод возвращает список товаров для просмотра без фильтров
      *
-     * @return список товаров в виде {@link List<Product>}
+     * @return список товаров {@link List<Product>}
      */
     List<Product> getProducts();
 

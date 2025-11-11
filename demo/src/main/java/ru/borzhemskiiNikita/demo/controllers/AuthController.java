@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.borzhemskiiNikita.demo.services.UserService;
 
+/**
+ * Класс, реализующий запросы связанные с авторизацией аккаунта в онлайн магазине
+ */
 @Controller
 public class AuthController {
     @Autowired
@@ -17,7 +20,7 @@ public class AuthController {
      *
      * @param login    логин пользователя
      * @param password пароль пользователя
-     * @return представление страницы goodJobPage, если аккаунт создан правильно и не такой же как у других, иначе
+     * @return представление страницы goodJobPage, если аккаунт создан правильно и не такой же, как у других, иначе
      * представление страницы accessDeniedPage
      */
     @PostMapping("/registration")
@@ -61,7 +64,7 @@ public class AuthController {
     }
 
     /**
-     * Метод перекидывает пользователя на страницу авторизации аккаунта
+     * Метод перенаправляет пользователя на страницу авторизации аккаунта
      *
      * @return представление страницы AuthPage
      */
