@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс, который содержит информацию об корзины покупателя
+ * Класс, содержащий информацию об корзины покупателя
  */
 @Component
 @Setter

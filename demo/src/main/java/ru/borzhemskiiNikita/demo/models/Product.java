@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 /**
- * Класс, который содержит информацию о продукте
+ * Класс, содержащий информацию о продукте
  */
 @Getter
 @Setter
